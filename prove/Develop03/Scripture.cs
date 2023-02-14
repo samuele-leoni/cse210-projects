@@ -26,7 +26,6 @@ class Scripture
         string book = scripture[IDX_BOOK_TITLE];
         int chapter = int.Parse(scripture[IDX_CHAPTER_NUMBER]);
         int firstVerse = int.Parse(scripture[IDX_VERSE_NUMBER]);
-        _reference = new(volume, book, chapter, firstVerse);
 
         i += rand.Next(5);
 
@@ -34,7 +33,12 @@ class Scripture
 
         if (scripture[IDX_BOOK_TITLE] == newScripture[IDX_BOOK_TITLE])
         {
-            _lastVerse = int.Parse(newScripture[IDX_VERSE_NUMBER]);
+            int lastVerse = int.Parse(newScripture[IDX_VERSE_NUMBER]);
+            _reference = new(volume, book, chapter, lastVerse);
+        }
+        else
+        {
+            _reference = new(volume, book, chapter, firstVerse);
         }
     }
     public Scripture(Reference reference, List<Word> text)
