@@ -148,7 +148,7 @@ class Scripture
                 scripture = scriptures[i];
             }
         }
-        if (lastVerse != 0)
+        if (lastVerse != 0 && lastVerse > firstVerse)
         {
             for (int x = int.Parse(scripture[(int)IDX_CSV.VERSE_ID]) - 1; x < int.Parse(scripture[(int)IDX_CSV.VERSE_ID]) + (lastVerse - firstVerse); x++)
             {
@@ -159,7 +159,7 @@ class Scripture
         else
         {
             _reference = new(volume, book, chapter, firstVerse);
-            List<Word> lst = WordsListToString(int.Parse(scripture[(int)IDX_CSV.VERSE_ID]));
+            List<Word> lst = WordsListToString(int.Parse(scripture[(int)IDX_CSV.VERSE_ID]) - 1);
             _text = _text.Concat(lst).ToList();
         }
     }
