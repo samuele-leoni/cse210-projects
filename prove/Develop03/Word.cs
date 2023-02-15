@@ -5,6 +5,7 @@ class Word
 
     public Word(string word)
     {
+        _isHidden = false;
         _word = word;
     }
 
