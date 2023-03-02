@@ -36,14 +36,18 @@ class Program
                 mtl = int.Parse(Console.ReadLine());
                 break;
             case (int)MENU.BREATHING:
-                BreathingActivity activity = new BreathingActivity();
-                activity.DisplayStartingMessage();
-                activity.DisplayBreathingMessages();
-                activity.DisplayEndingMessage();
+                BreathingActivity breathingActivity = new BreathingActivity();
+                breathingActivity.DisplayStartingMessage();
+                breathingActivity.DisplayBreathingMessages();
+                breathingActivity.DisplayEndingMessage();
                 mtl = (int)MENU.MAIN;
                 break;
             case (int)MENU.REFLECTING:
-                //TODO
+                ReflectionActivity reflectionActivity = new ReflectionActivity();
+                reflectionActivity.DisplayStartingMessage();
+                reflectionActivity.DisplayPrompt();
+                reflectionActivity.DisplayQuestionsAboutPrompt();
+                reflectionActivity.DisplayEndingMessage();
                 mtl = (int)MENU.MAIN;
                 break;
             case (int)MENU.LISTING:
@@ -51,7 +55,6 @@ class Program
                 mtl = (int)MENU.MAIN;
                 break;
             default:
-                //TODO
                 break;
         }
         return mtl;
