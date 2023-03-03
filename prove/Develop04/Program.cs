@@ -51,7 +51,11 @@ class Program
                 mtl = (int)MENU.MAIN;
                 break;
             case (int)MENU.LISTING:
-                //TODO
+                ListingActivity listingActivity = new ListingActivity();
+                listingActivity.DisplayStartingMessage();
+                listingActivity.DisplayPrompt();
+                listingActivity.DisplayListingActivity();
+                listingActivity.DisplayEndingMessage();
                 mtl = (int)MENU.MAIN;
                 break;
             default:
