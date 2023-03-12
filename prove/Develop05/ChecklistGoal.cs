@@ -7,6 +7,10 @@ class ChecklistGoal : Goal
     {
         return _timesCompleted == _timesToGetBonus;
     }
+    public void CheckDone()
+    {
+        _timesCompleted++;
+    }
     public override int PointsEarned()
     {
         return IsDone() ? base.PointsEarned() + _bonusPoints : base.PointsEarned();
@@ -18,18 +22,6 @@ class ChecklistGoal : Goal
     public override string GetSavingString()
     {
         return $"{base.GetSavingString()},{_bonusPoints},{_timesToGetBonus},{_timesCompleted}";
-    }
-    public int GetTimesCompleted()
-    {
-        return _timesCompleted;
-    }
-    public int GetTimesToGetBonus()
-    {
-        return _timesToGetBonus;
-    }
-    public int GetBonusPoints()
-    {
-        return _bonusPoints;
     }
     public ChecklistGoal(string name, string description, int points, int timesToGetBonus, int bonusPoints) : base(typeof(ChecklistGoal).Name, name, description, points)
     {
