@@ -22,6 +22,9 @@ class Goal
     }
     public Goal(string type, string name, string description, int points)
     {
-
+        _type = type;
+        _name = name;
+        _description = description;
+        _points = points;
     }
 }
