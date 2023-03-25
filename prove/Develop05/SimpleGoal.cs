@@ -1,11 +1,11 @@
 class SimpleGoal : Goal
 {
     private bool _done;
-    public bool IsDone()
+    public override bool IsDone()
     {
         return _done;
     }
-    public void MarkAsDone()
+    public override void MarkAsDone()
     {
         _done = true;
     }

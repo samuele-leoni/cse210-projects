@@ -20,6 +20,14 @@ class Goal
     {
         return $"{_type}:{_name},{_description},{_points}";
     }
+    public virtual bool IsDone()
+    {
+        return false;
+    }
+    public virtual void MarkAsDone()
+    {
+        
+    }
     public Goal(string type, string name, string description, int points)
     {
         _type = type;

@@ -9,17 +9,7 @@ class Game
     public void RecordEvent(Goal goal)
     {
         _points += goal.PointsEarned();
-        switch (goal.GetType().Name)
-        {
-            case "SimpleGoal":
-                SimpleGoal simpleGoal = (SimpleGoal)goal;
-                simpleGoal.MarkAsDone();
-                break;
-            case "ChecklistGoal":
-                ChecklistGoal checklistGoal = (ChecklistGoal)goal;
-                checklistGoal.CheckDone();
-                break;
-        }
+        goal.MarkAsDone();
         Console.WriteLine(goal.GetCompletionString());
     }
     public void AddGoal(Goal goal)
@@ -55,28 +45,30 @@ class Game
             string[] typesAndGoals = line.Split(':');
             string type = typesAndGoals[0];
             string[] goalInfo = typesAndGoals[1].Split(',');
+            Goal goal = null;
             switch (type)
             {
                 case "SimpleGoal":
-                    SimpleGoal simpleGoal = new SimpleGoal(goalInfo[0], goalInfo[1], int.Parse(goalInfo[2]));
+                    goal = new SimpleGoal(goalInfo[0], goalInfo[1], int.Parse(goalInfo[2]));
                     if (bool.Parse(goalInfo[3]))
                     {
-                        simpleGoal.MarkAsDone();
+                        goal.MarkAsDone();
                     }
-                    _goals.Add(simpleGoal);
                     break;
                 case "ChecklistGoal":
-                    ChecklistGoal checklistGoal = new ChecklistGoal(goalInfo[0], goalInfo[1], int.Parse(goalInfo[2]), int.Parse(goalInfo[4]), int.Parse(goalInfo[3]));
+                    goal = new ChecklistGoal(goalInfo[0], goalInfo[1], int.Parse(goalInfo[2]), int.Parse(goalInfo[4]), int.Parse(goalInfo[3]));
                     for (int i = 0; i < int.Parse(goalInfo[5]); i++)
                     {
-                        checklistGoal.CheckDone();
+                        goal.MarkAsDone();
                     }
-                    _goals.Add(checklistGoal);
                     break;
                 case "EternalGoal":
-                    EternalGoal eternalGoal = new EternalGoal(goalInfo[0], goalInfo[1], int.Parse(goalInfo[2]));
-                    _goals.Add(eternalGoal);
+                    goal = new EternalGoal(goalInfo[0], goalInfo[1], int.Parse(goalInfo[2]));
                     break;
+            }
+            if(goal != null)
+            {
+                _goals.Add(goal);
             }
         }
     }
@@ -85,18 +77,7 @@ class Game
         Console.WriteLine("The goals are:");
         for (int i = 0; i < _goals.Count; i++)
         {
-            bool isDone = false;
-            if (_goals[i].GetType().Name == "SimpleGoal")
-            {
-                SimpleGoal simpleGoal = (SimpleGoal)_goals[i];
-                isDone = simpleGoal.IsDone();
-            }
-            else if (_goals[i].GetType().Name == "ChecklistGoal")
-            {
-                ChecklistGoal checklistGoal = (ChecklistGoal)_goals[i];
-                isDone = checklistGoal.IsDone();
-            }
-            if (!isDone)
+            if (!_goals[i].IsDone())
             {
                 Console.WriteLine($"{i + 1}. {_goals[i]}");
             }
@@ -107,24 +88,7 @@ class Game
         Console.WriteLine("The goals are:");
         for (int i = 0; i < _goals.Count; i++)
         {
-            char c = ' ';
-            if(_goals[i].GetType().Name == "SimpleGoal")
-            {
-                SimpleGoal simpleGoal = (SimpleGoal)_goals[i];
-                if (simpleGoal.IsDone())
-                {
-                    c = 'X';
-                }
-            }
-            else if (_goals[i].GetType().Name == "ChecklistGoal")
-            {
-                ChecklistGoal checklistGoal = (ChecklistGoal)_goals[i];
-                if (checklistGoal.IsDone())
-                {
-                    c = 'X';
-                }
-            }
-            Console.WriteLine($"{i + 1}. [{c}] {_goals[i]}");
+            Console.WriteLine($"{i + 1}. [{(_goals[i].IsDone() ? 'X' : ' ')}] {_goals[i]}");
         }
     }
     public int GetPoints()

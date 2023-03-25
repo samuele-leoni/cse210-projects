@@ -3,11 +3,11 @@ class ChecklistGoal : Goal
     private int _timesToGetBonus;
     private int _bonusPoints;
     private int _timesCompleted;
-    public bool IsDone()
+    public override bool IsDone()
     {
         return _timesCompleted == _timesToGetBonus;
     }
-    public void CheckDone()
+    public override void MarkAsDone()
     {
         _timesCompleted++;
     }
