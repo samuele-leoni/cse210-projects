@@ -31,7 +31,7 @@ class Program
             mtl = LoadMenu(mtl);
         }
         Console.Clear();
-        Console.WriteLine("See you next time!");
+        Console.WriteLine("Goodbye!");
     }
 
     /// <summary> Loads the menu specified by the menuToLoad parameter. The menu value is specified as the MENU enum. </summary>
@@ -45,22 +45,25 @@ class Program
         switch (menuToLoad)
         {
             case (int)MENU.MAIN:
-                Console.WriteLine("Select an option from the menu:");
+                Console.WriteLine("Main Menu");
                 Console.WriteLine("    1. Manage Users");
                 Console.WriteLine("    2. Manage Media");
                 Console.WriteLine("    3. Save");
                 Console.WriteLine("    4. Load");
                 Console.WriteLine("    5. Quit");
+                Console.Write("Select an option: ");
+                mtl = int.Parse(Console.ReadLine());
                 break;
 
             case (int)MENU.MANAGE_USERS:
                 offset = (int)MENU.QUIT;
-                Console.WriteLine("Select an option from the menu:");
+                Console.WriteLine("User Management Menu");
                 Console.WriteLine("    1. Add User");
                 Console.WriteLine("    2. Remove User");
                 Console.WriteLine("    3. List Users");
                 Console.WriteLine("    4. Search Users");
                 Console.WriteLine("    5. Back");
+                Console.Write("Select an option: ");
                 mtl = int.Parse(Console.ReadLine()) + offset;
                 if (mtl == 5)
                 {
@@ -70,13 +73,14 @@ class Program
 
             case (int)MENU.MANAGE_MEDIA:
                 offset = (int)MENU.SEARCH_USERS;
-                Console.WriteLine("Select an option from the menu:");
+                Console.WriteLine("Media Management Menu");
                 Console.WriteLine("    1. Add Media");
                 Console.WriteLine("    2. Remove Media");
                 Console.WriteLine("    3. List Media");
                 Console.WriteLine("    4. Search Media");
                 Console.WriteLine("    5. Back");
-                mtl = int.Parse(Console.ReadLine());
+                Console.Write("Select an option: ");
+                mtl = int.Parse(Console.ReadLine()) + offset;
                 if (mtl == 5)
                 {
                     mtl = (int)MENU.MAIN;
@@ -84,10 +88,11 @@ class Program
                 break;
 
             case (int)MENU.SAVE:
-                Console.WriteLine("Select an option from the menu:");
+                Console.WriteLine("Save Menu");
                 Console.WriteLine("    1. Save Media");
                 Console.WriteLine("    2. Save Users");
                 Console.WriteLine("    3. Back");
+                Console.Write("Select an option: ");
                 mtl = int.Parse(Console.ReadLine());
                 Console.Write("Enter the filename: ");
                 string saveFileName = Console.ReadLine();
@@ -99,10 +104,11 @@ class Program
                 break;
 
             case (int)MENU.LOAD:
-                Console.WriteLine("Select an option from the menu:");
+                Console.WriteLine("Load Menu");
                 Console.WriteLine("    1. Load Media");
                 Console.WriteLine("    2. Load Users");
                 Console.WriteLine("    3. Back");
+                Console.Write("Select an option: ");
                 mtl = int.Parse(Console.ReadLine());
                 Console.Write("Enter the filename: ");
                 string loadFileName = Console.ReadLine();
