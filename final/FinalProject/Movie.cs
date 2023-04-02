@@ -2,12 +2,23 @@ class Movie : VideoMedia
 {
     private int _length;
 
-    public override void Display()
+    public void SetLength(int length)
     {
-        // TODO: Implement overridden Display method
+        _length = length;
     }
 
-    public Movie(int id, string title, string author, string genre, string publisher, DateTime releaseDate, string supportType, string director, string description, int length) : base(id, typeof(Movie).Name, title, author, genre, publisher, releaseDate, supportType, director, description)
+    public override string GetSavingString()
+    {
+        return $"{base.GetSavingString()}|{_length}";
+    }
+
+    public override void Display()
+    {
+        base.Display();
+        Console.WriteLine($"Length: {_length}");
+    }
+
+    public Movie(string title, string author, string genre, string publisher, DateTime releaseDate, string supportType, string director, string description, int length) : base(title, author, genre, publisher, releaseDate, supportType, director, description)
     {
         _length = length;
     }

@@ -1,7 +1,6 @@
 class Media
 {
     private int _id;
-    private string _type;
     private string _title;
     private string _author;
     private string _genre;
@@ -12,6 +11,11 @@ class Media
     private DateTime _borrowStartDate;
     private DateTime _borrowEndDate;
 
+    public object Clone()
+    {
+        return MemberwiseClone();
+    }
+
     public void SetId(int id)
     {
         _id = id;
@@ -20,11 +24,6 @@ class Media
     public int GetId()
     {
         return _id;
-    }
-
-    public string GetMediaType()
-    {
-        return _type;
     }
 
     public string GetTitle()
@@ -74,7 +73,7 @@ class Media
 
     public virtual string GetSavingString()
     {
-        return _id + "," + _type + "," + _title + "," + _author + "," + _genre + "," + _publisher + "," + _releaseDate.ToString("yyyy-MM-dd") + "," + _isBorrowed + "," + _borrowUserId + "," + _borrowStartDate.ToString("yyyy-MM-dd") + "," + _borrowEndDate.ToString("yyyy-MM-dd");
+        return $"{GetType().Name}\\{_id}|{_title}|{_author}|{_genre}|{_publisher}|{_releaseDate.ToString("yyyy-MM-dd")}|{_isBorrowed}|{_borrowUserId}|{_borrowStartDate.ToString("yyyy-MM-dd")}|{_borrowEndDate.ToString("yyyy-MM-dd")}";
     }
 
     /// <summary> Sets the media as borrowed. It will also set the id of the user which borrowed it, the start date and the end date. </summary>
@@ -100,13 +99,26 @@ class Media
 
     public virtual void Display()
     {
-        //TODO: Display media info
+        Console.WriteLine();
+        Console.WriteLine(GetType().Name);
+        Console.WriteLine($"ID: {_id}");
+        Console.WriteLine($"Title: {_title}");
+        Console.WriteLine($"Author: {_author}");
+        Console.WriteLine($"Genre: {_genre}");
+        Console.WriteLine($"Publisher: {_publisher}");
+        Console.WriteLine($"Release Date: {_releaseDate.ToString("MM-dd-yyyy")}");
+        Console.WriteLine($"Borrowed: {(_isBorrowed ? "Yes" : "No")}");
+        if (_isBorrowed)
+        {
+            Console.WriteLine($"Borrowed by user: {_borrowUserId}");
+            Console.WriteLine($"Borrowed on: {_borrowStartDate.ToString("MM-dd-yyyy")}");
+            Console.WriteLine($"Due to be returned on: {_borrowEndDate.ToString("MM-dd-yyyy")}");
+        }
     }
 
-    public Media(int id, string type, string title, string author, string genre, string publisher, DateTime releaseDate)
+    public Media(string title, string author, string genre, string publisher, DateTime releaseDate)
     {
-        _id = id;
-        _type = type;
+        _id = 0;
         _title = title;
         _author = author;
         _genre = genre;
@@ -116,5 +128,19 @@ class Media
         _borrowUserId = -1;
         _borrowStartDate = DateTime.MinValue;
         _borrowEndDate = DateTime.MinValue;
+    }
+
+    public Media(int id, string title, string author, string genre, string publisher, DateTime releaseDate, bool isBorrowed, int borrowUserId, DateTime borrowStartDate, DateTime borrowEndDate)
+    {
+        _id = id;
+        _title = title;
+        _author = author;
+        _genre = genre;
+        _publisher = publisher;
+        _releaseDate = releaseDate;
+        _isBorrowed = isBorrowed;
+        _borrowUserId = borrowUserId;
+        _borrowStartDate = borrowStartDate;
+        _borrowEndDate = borrowEndDate;
     }
 }

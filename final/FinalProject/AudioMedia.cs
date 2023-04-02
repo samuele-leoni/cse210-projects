@@ -4,7 +4,12 @@ class AudioMedia : Media
 
     public override void Display()
     {
-        //TODO: Implement overridden Display method
+        base.Display();
+        Console.WriteLine("Tracks:");
+        foreach (string track in _tracks)
+        {
+            Console.WriteLine(track);
+        }
     }
 
     public void AddTrack(string track)
@@ -22,12 +27,19 @@ class AudioMedia : Media
         return _tracks.Count;
     }
 
-    public AudioMedia(int id, string type, string title, string author, string genre, string publisher, DateTime releaseDate) : base(id, type, title, author, genre, publisher, releaseDate)
+    public override string GetSavingString()
     {
-        _tracks = new List<string>();
+        string savingString = $"{base.GetSavingString()}\\";
+        foreach (string track in _tracks)
+        {
+            savingString += $"{track}|";
+        }
+        savingString = savingString.Remove(savingString.Length - 1);
+
+        return savingString;
     }
 
-    public AudioMedia(int id, string type, string title, string author, string genre, string publisher, DateTime releaseDate, List<string> tracks) : base(id, type, title, author, genre, publisher, releaseDate)
+    public AudioMedia(string title, string author, string genre, string publisher, DateTime releaseDate, List<string> tracks) : base(title, author, genre, publisher, releaseDate)
     {
         _tracks = tracks.ToList();
     }

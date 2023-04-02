@@ -2,10 +2,11 @@ class Book : BookMedia
 {
     public override void Display()
     {
-        // TODO: Implement overridden Display method
+        base.Display();
+        Console.WriteLine();
     }
 
-    public Book(int id, string title, string author, string genre, string publisher, DateTime releaseDate) : base(id, typeof(Book).Name, title, author, genre, publisher, releaseDate)
+    public Book(string title, string author, string genre, string publisher, DateTime releaseDate, int chapters, int pages, string description) : base(title, author, genre, publisher, releaseDate, chapters, pages, description)
     {
     }
 }

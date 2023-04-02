@@ -2,17 +2,23 @@ class AudioBook : AudioMedia
 {
     private string _narrator;
 
-    public override void Display()
-    {
-        //TODO: Implement overridden Display method
-    }
-
-    public AudioBook(int id, string title, string author, string genre, string publisher, DateTime releaseDate, string narrator) : base(id, typeof(AudioBook).Name, title, author, genre, publisher, releaseDate)
+    public void SetNarrator(string narrator)
     {
         _narrator = narrator;
     }
+
+    public override string GetSavingString()
+    {
+        return $"{base.GetSavingString()}\\{_narrator}";
+    }
+
+    public override void Display()
+    {
+        base.Display();
+        Console.WriteLine($"Narrator: {_narrator}");
+    }
     
-    public AudioBook(int id, string title, string author, string genre, string publisher, DateTime releaseDate, string narrator, List<string> tracks) : base(id, typeof(AudioBook).Name, title, author, genre, publisher, releaseDate, tracks)
+    public AudioBook(string title, string author, string genre, string publisher, DateTime releaseDate, string narrator, List<string> tracks) : base(title, author, genre, publisher, releaseDate, tracks)
     {
         _narrator = narrator;
     }
